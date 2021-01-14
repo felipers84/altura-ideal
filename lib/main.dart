@@ -52,86 +52,94 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+        backgroundColor: NeumorphicColors.background,
         body: SafeArea(
-      child: Container(
-        color: NeumorphicColors.background,
-        child: LayoutBuilder(
-          builder: (context, constraints) => Center(
-            child: Padding(
-              padding:
-                  EdgeInsets.symmetric(horizontal: constraints.maxWidth / 6),
-              child: Neumorphic(
-                style: NeumorphicStyle(
-                    shape: NeumorphicShape.concave,
-                    boxShape: NeumorphicBoxShape.roundRect(
-                        BorderRadius.all(Radius.circular(24)))),
+          maintainBottomViewPadding: false,
+          child: Container(
+            color: NeumorphicColors.background,
+            child: LayoutBuilder(
+              builder: (context, constraints) => Center(
                 child: Padding(
-                  padding: const EdgeInsets.all(32),
-                  child: Column(
-                    mainAxisSize: MainAxisSize.min,
-                    crossAxisAlignment: CrossAxisAlignment.stretch,
-                    children: [
-                      Neumorphic(
-                        child: Padding(
-                          padding: const EdgeInsets.all(28),
-                          child: Text(
-                            display == "" ? "Informe o peso" : display,
-                            textAlign: TextAlign.right,
-                            style: Theme.of(context)
-                                .textTheme
-                                .bodyText1
-                                .copyWith(fontSize: 32),
-                          ),
-                        ),
-                        style: NeumorphicStyle(
-                            intensity: 2,
-                            depth: -16,
-                            color: Color(0xFF77AA99),
-                            boxShape: NeumorphicBoxShape.roundRect(
-                                BorderRadius.all(Radius.circular(6)))),
-                      ),
-                      SizedBox(height: 24),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.end,
+                  padding: EdgeInsets.symmetric(
+                      horizontal: constraints.maxWidth / 6),
+                  child: Neumorphic(
+                    style: NeumorphicStyle(
+                        shape: NeumorphicShape.concave,
+                        boxShape: NeumorphicBoxShape.roundRect(
+                            BorderRadius.all(Radius.circular(24)))),
+                    child: Padding(
+                      padding: const EdgeInsets.all(32),
+                      child: Column(
+                        mainAxisSize: MainAxisSize.min,
+                        crossAxisAlignment: CrossAxisAlignment.stretch,
                         children: [
-                          BotaoCalculadora(
-                              digito: "<",
-                              pressionouTecla: () => limparDigito())
+                          Neumorphic(
+
+                            child: Container(
+                              height: 100,
+                              child: Center(
+                                child: Text(
+                                  display == "" ? "Informe o peso" : display,
+                                  textAlign: TextAlign.right,
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .bodyText1
+                                      .copyWith(fontSize: 24),
+                                ),
+                              ),
+                            ),
+                            style: NeumorphicStyle(
+                                intensity: 2,
+                                depth: -16,
+                                color: Color(0xFF77AA99),
+                                boxShape: NeumorphicBoxShape.roundRect(
+                                    BorderRadius.all(Radius.circular(6)))),
+                          ),
+                          SizedBox(height: 24),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.end,
+                            children: [
+                              BotaoCalculadora(
+                                  digito: "<",
+                                  pressionouTecla: () => limparDigito())
+                            ],
+                          ),
+                          SizedBox(height: 12),
+                          Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: ["7", "8", "9"]
+                                  .map((e) => BotaoCalculadora(
+                                      digito: e,
+                                      pressionouTecla: () =>
+                                          pressionouDigito(e)))
+                                  .toList()),
+                          SizedBox(height: 12),
+                          Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: ["4", "5", "6"]
+                                  .map((e) => BotaoCalculadora(
+                                      digito: e,
+                                      pressionouTecla: () =>
+                                          pressionouDigito(e)))
+                                  .toList()),
+                          SizedBox(height: 12),
+                          Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: ["1", "2", "3"]
+                                  .map((e) => BotaoCalculadora(
+                                      digito: e,
+                                      pressionouTecla: () =>
+                                          pressionouDigito(e)))
+                                  .toList()),
                         ],
                       ),
-                      SizedBox(height: 12),
-                      Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: ["7", "8", "9"]
-                              .map((e) => BotaoCalculadora(
-                                  digito: e,
-                                  pressionouTecla: () => pressionouDigito(e)))
-                              .toList()),
-                      SizedBox(height: 12),
-                      Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: ["4", "5", "6"]
-                              .map((e) => BotaoCalculadora(
-                                  digito: e,
-                                  pressionouTecla: () => pressionouDigito(e)))
-                              .toList()),
-                      SizedBox(height: 12),
-                      Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: ["1", "2", "3"]
-                              .map((e) => BotaoCalculadora(
-                                  digito: e,
-                                  pressionouTecla: () => pressionouDigito(e)))
-                              .toList()),
-                    ],
+                    ),
                   ),
                 ),
               ),
             ),
           ),
-        ),
-      ),
-    ) // This trailing comma makes auto-formatting nicer for build methods.
+        ) // This trailing comma makes auto-formatting nicer for build methods.
         );
   }
 }
