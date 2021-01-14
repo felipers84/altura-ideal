@@ -61,13 +61,14 @@ class _MyHomePageState extends State<MyHomePage> {
                         padding: EdgeInsets.symmetric(horizontal: 24),
                         child: Neumorphic(
                           child: Padding(
-                            padding: const EdgeInsets.all(36),
+                            padding: const EdgeInsets.all(28),
                             child: Text(
-                              "789456123456798",
+                              "123",
+                              textAlign: TextAlign.right,
                               style: Theme.of(context)
                                   .textTheme
                                   .bodyText1
-                                  .copyWith(fontSize: 16),
+                                  .copyWith(fontSize: 32),
                             ),
                           ),
                           style: NeumorphicStyle(
