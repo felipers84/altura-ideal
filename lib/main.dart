@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
+import 'package:imc/calculadora.dart';
 
 void main() {
   runApp(MyApp());
@@ -29,6 +30,8 @@ class MyHomePage extends StatefulWidget {
   MyHomePage({Key key, this.title}) : super(key: key);
 
   final String title;
+  final String unidade = "cm";
+  final String placeholder = "Informe o peso";
 
   @override
   _MyHomePageState createState() => _MyHomePageState();
@@ -38,7 +41,7 @@ class _MyHomePageState extends State<MyHomePage> {
   String display = "";
 
   pressionouDigito(String digito) {
-    if (digito.length < 3) {
+    if (display.length < 3) {
       setState(() => display = "${display}${digito}");
     }
   }
@@ -60,105 +63,13 @@ class _MyHomePageState extends State<MyHomePage> {
             child: LayoutBuilder(
               builder: (context, constraints) => Center(
                 child: Padding(
-                  padding: EdgeInsets.symmetric(
-                      horizontal: constraints.maxWidth / 6),
-                  child: Neumorphic(
-                    style: NeumorphicStyle(
-                        shape: NeumorphicShape.concave,
-                        boxShape: NeumorphicBoxShape.roundRect(
-                            BorderRadius.all(Radius.circular(24)))),
-                    child: Padding(
-                      padding: const EdgeInsets.all(32),
-                      child: Column(
-                        mainAxisSize: MainAxisSize.min,
-                        crossAxisAlignment: CrossAxisAlignment.stretch,
-                        children: [
-                          Neumorphic(
-
-                            child: Container(
-                              height: 100,
-                              child: Center(
-                                child: Text(
-                                  display == "" ? "Informe o peso" : display,
-                                  textAlign: TextAlign.right,
-                                  style: Theme.of(context)
-                                      .textTheme
-                                      .bodyText1
-                                      .copyWith(fontSize: 24),
-                                ),
-                              ),
-                            ),
-                            style: NeumorphicStyle(
-                                intensity: 2,
-                                depth: -16,
-                                color: Color(0xFF77AA99),
-                                boxShape: NeumorphicBoxShape.roundRect(
-                                    BorderRadius.all(Radius.circular(6)))),
-                          ),
-                          SizedBox(height: 24),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.end,
-                            children: [
-                              BotaoCalculadora(
-                                  digito: "<",
-                                  pressionouTecla: () => limparDigito())
-                            ],
-                          ),
-                          SizedBox(height: 12),
-                          Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: ["7", "8", "9"]
-                                  .map((e) => BotaoCalculadora(
-                                      digito: e,
-                                      pressionouTecla: () =>
-                                          pressionouDigito(e)))
-                                  .toList()),
-                          SizedBox(height: 12),
-                          Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: ["4", "5", "6"]
-                                  .map((e) => BotaoCalculadora(
-                                      digito: e,
-                                      pressionouTecla: () =>
-                                          pressionouDigito(e)))
-                                  .toList()),
-                          SizedBox(height: 12),
-                          Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: ["1", "2", "3"]
-                                  .map((e) => BotaoCalculadora(
-                                      digito: e,
-                                      pressionouTecla: () =>
-                                          pressionouDigito(e)))
-                                  .toList()),
-                        ],
-                      ),
-                    ),
-                  ),
-                ),
+                    padding: EdgeInsets.symmetric(
+                        horizontal: constraints.maxWidth / 6),
+                    child: Calculadora()),
               ),
             ),
           ),
         ) // This trailing comma makes auto-formatting nicer for build methods.
         );
   }
-}
-
-class BotaoCalculadora extends StatelessWidget {
-  const BotaoCalculadora({Key key, this.digito, this.pressionouTecla})
-      : super(key: key);
-
-  final String digito;
-  final Function() pressionouTecla;
-
-  @override
-  Widget build(BuildContext context) => NeumorphicButton(
-      style: NeumorphicStyle(depth: 8, boxShape: NeumorphicBoxShape.circle()),
-      onPressed: () {
-        if (pressionouTecla != null) pressionouTecla();
-      },
-      child: Padding(
-        padding: const EdgeInsets.all(4),
-        child: Text(digito),
-      ));
 }
