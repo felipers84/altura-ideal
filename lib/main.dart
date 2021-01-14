@@ -1,6 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
+import 'package:imc/calculadora.cubit.dart';
 import 'package:imc/calculadora.dart';
 
 void main() {
@@ -65,7 +67,16 @@ class _MyHomePageState extends State<MyHomePage> {
                 child: Padding(
                     padding: EdgeInsets.symmetric(
                         horizontal: constraints.maxWidth / 6),
-                    child: Calculadora()),
+                    child: BlocBuilder<CalculadoraCubit, CalculadoraState>(
+                      cubit: CalculadoraCubit(),
+                      builder: (context, state) {
+                        return Calculadora(
+                          placeholder: "Informe o peso",
+                          unidade: "kg",
+                          valorInformado: (valor) {},
+                        );
+                      },
+                    )),
               ),
             ),
           ),

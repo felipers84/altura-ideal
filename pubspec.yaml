@@ -22,6 +22,7 @@ environment:
 
 dependencies:
   flutter_neumorphic: ^3.0.3
+  flutter_bloc: ^6.1.1
   flutter:
     sdk: flutter
 

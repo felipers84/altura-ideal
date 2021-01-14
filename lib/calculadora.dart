@@ -6,6 +6,7 @@ class Calculadora extends StatefulWidget {
   const Calculadora(
       {Key key,
       this.title,
+      this.valorInformado,
       this.unidade = "cm",
       this.placeholder = "Informe um valor"})
       : super(key: key);
@@ -13,6 +14,7 @@ class Calculadora extends StatefulWidget {
   final String title;
   final String unidade;
   final String placeholder;
+  final Function(int) valorInformado;
 
   @override
   _Calculadora createState() => _Calculadora();
@@ -20,13 +22,25 @@ class Calculadora extends StatefulWidget {
 
 class _Calculadora extends State<Calculadora> with TickerProviderStateMixin {
   String display = "";
-  AnimationController controller;
+  AnimationController depthController;
+  AnimationController opacityController;
 
   @override
   void initState() {
-    controller = AnimationController(
-        duration: Duration(seconds: 1), value: 0, vsync: this)
+    opacityController = AnimationController(
+        duration: Duration(milliseconds: 500), value: 0, vsync: this)
       ..animateTo(1, curve: Curves.easeInOut);
+    depthController = AnimationController(
+        duration: Duration(milliseconds: 1000), value: 0, vsync: this)
+      ..animateTo(1, curve: Curves.easeInOut);
+  }
+
+  close() {
+    depthController.animateTo(0).then((value) {
+      if (widget.valorInformado != null)
+        widget.valorInformado(int.parse(display));
+    });
+    opacityController.animateTo(0, curve: Curves.easeInOut);
   }
 
   pressionouDigito(String digito) {
@@ -43,23 +57,30 @@ class _Calculadora extends State<Calculadora> with TickerProviderStateMixin {
 
   @override
   Widget build(BuildContext context) => AnimatedBuilder(
-        animation: controller,
+        animation: depthController,
         builder: (context, _) => LayoutBuilder(
           builder: (context, constraints) => Center(
             child: Opacity(
-              opacity: controller.value,
+              opacity: opacityController.value,
               child: Neumorphic(
                 style: NeumorphicStyle(
                     shape: NeumorphicShape.concave,
-                    depth: 12 * controller.value,
+                    depth: 12 * depthController.value,
                     boxShape: NeumorphicBoxShape.roundRect(
                         BorderRadius.all(Radius.circular(24)))),
                 child: Padding(
-                  padding: const EdgeInsets.all(32),
+                  padding: const EdgeInsets.fromLTRB(32, 12, 32, 24),
                   child: Column(
                     mainAxisSize: MainAxisSize.min,
                     crossAxisAlignment: CrossAxisAlignment.stretch,
                     children: [
+                      Text("ALTURA IDEAL",
+                          textAlign: TextAlign.right,
+                          style: TextStyle(
+                              fontWeight: FontWeight.w900,
+                              fontSize: 12,
+                              fontStyle: FontStyle.italic)),
+                      SizedBox(height: 8),
                       Neumorphic(
                         child: Stack(
                           alignment: Alignment.center,
@@ -93,7 +114,7 @@ class _Calculadora extends State<Calculadora> with TickerProviderStateMixin {
                         ),
                         style: NeumorphicStyle(
                             intensity: 2,
-                            depth: -16 * controller.value,
+                            depth: -16 * depthController.value,
                             color: Color(0xFF77AA99),
                             boxShape: NeumorphicBoxShape.roundRect(
                                 BorderRadius.all(Radius.circular(6)))),
@@ -105,7 +126,7 @@ class _Calculadora extends State<Calculadora> with TickerProviderStateMixin {
                           BotaoCalculadora(
                               digito: "<",
                               pressionouTecla: () => limparDigito(),
-                              animationPosition: controller.value)
+                              animationPosition: depthController.value)
                         ],
                       ),
                       SizedBox(height: 12),
@@ -115,7 +136,7 @@ class _Calculadora extends State<Calculadora> with TickerProviderStateMixin {
                               .map((e) => BotaoCalculadora(
                                   digito: e,
                                   pressionouTecla: () => pressionouDigito(e),
-                                  animationPosition: controller.value))
+                                  animationPosition: depthController.value))
                               .toList()),
                       SizedBox(height: 12),
                       Row(
@@ -124,7 +145,7 @@ class _Calculadora extends State<Calculadora> with TickerProviderStateMixin {
                               .map((e) => BotaoCalculadora(
                                   digito: e,
                                   pressionouTecla: () => pressionouDigito(e),
-                                  animationPosition: controller.value))
+                                  animationPosition: depthController.value))
                               .toList()),
                       SizedBox(height: 12),
                       Row(
@@ -133,8 +154,26 @@ class _Calculadora extends State<Calculadora> with TickerProviderStateMixin {
                               .map((e) => BotaoCalculadora(
                                   digito: e,
                                   pressionouTecla: () => pressionouDigito(e),
-                                  animationPosition: controller.value))
+                                  animationPosition: depthController.value))
                               .toList()),
+                      SizedBox(height: 24),
+                      NeumorphicButton(
+                        style: NeumorphicStyle(
+                            depth: 12 * depthController.value,
+                            boxShape: NeumorphicBoxShape.roundRect(
+                                BorderRadius.circular(8))),
+                        onPressed: () {
+                          if (int.tryParse(display) != null) close();
+                        },
+                        child: Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Text(
+                            "PROSSEGUIR",
+                            style: TextStyle(fontWeight: FontWeight.w800),
+                            textAlign: TextAlign.center,
+                          ),
+                        ),
+                      )
                     ],
                   ),
                 ),
