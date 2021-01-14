@@ -38,7 +38,6 @@ class _IntroducaoState extends State<Introducao> with TickerProviderStateMixin {
               scale: 0.1 + (0.9 * controller.value),
               child: Text(
                 "ALTURA IDEAL",
-                softWrap: false,
                 style: TextStyle(fontSize: 40, height: 0.8),
               ),
             ),
