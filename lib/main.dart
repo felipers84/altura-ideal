@@ -70,7 +70,7 @@ class _MyHomePageState extends State<MyHomePage> {
                   builder: (context, constraints) => Center(
                     child: Padding(
                         padding: EdgeInsets.symmetric(
-                            horizontal: constraints.maxWidth / 6),
+                            horizontal: constraints.maxWidth / 8),
                         child: BlocBuilder<CalculadoraCubit, CalculadoraState>(
                           builder: (context, state) {
                             var cubit =
