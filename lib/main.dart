@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 import 'package:imc/calculadora.cubit.dart';
 import 'package:imc/calculadora.dart';
+import 'package:imc/resultado.dart';
 
 void main() {
   runApp(MyApp());
@@ -19,7 +20,8 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.blue,
         textTheme: TextTheme(
             headline1: TextStyle(color: Colors.red),
-            bodyText2: TextStyle(color: Color(0xFF777777)),
+            bodyText2: TextStyle(
+                color: Color(0xFF555555), fontWeight: FontWeight.bold),
             bodyText1: TextStyle(fontFamily: "Digital")),
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
@@ -55,32 +57,49 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
   @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-        backgroundColor: NeumorphicColors.background,
-        body: SafeArea(
-          maintainBottomViewPadding: false,
-          child: Container(
-            color: NeumorphicColors.background,
-            child: LayoutBuilder(
-              builder: (context, constraints) => Center(
-                child: Padding(
-                    padding: EdgeInsets.symmetric(
-                        horizontal: constraints.maxWidth / 6),
-                    child: BlocBuilder<CalculadoraCubit, CalculadoraState>(
-                      cubit: CalculadoraCubit(),
-                      builder: (context, state) {
-                        return Calculadora(
-                          placeholder: "Informe o peso",
-                          unidade: "kg",
-                          valorInformado: (valor) {},
-                        );
-                      },
-                    )),
+  Widget build(BuildContext context) => BlocProvider<CalculadoraCubit>(
+        create: (context) => CalculadoraCubit(),
+        child: Scaffold(
+            backgroundColor: NeumorphicColors.background,
+            body: SafeArea(
+              maintainBottomViewPadding: false,
+              child: Container(
+                color: NeumorphicColors.background,
+                child: LayoutBuilder(
+                  builder: (context, constraints) => Center(
+                    child: Padding(
+                        padding: EdgeInsets.symmetric(
+                            horizontal: constraints.maxWidth / 6),
+                        child: BlocBuilder<CalculadoraCubit, CalculadoraState>(
+                          builder: (context, state) {
+                            var cubit =
+                                BlocProvider.of<CalculadoraCubit>(context);
+                            if (state is CalculadoraState_VerificandoPeso)
+                              return Calculadora(
+                                key: GlobalKey(),
+                                placeholder: "Informe o peso",
+                                unidade: "kg",
+                                valorInformado: (valor) =>
+                                    cubit.verificarAltura(valor),
+                              );
+                            else if (state
+                                is CalculadoraState_VerificandoAltura)
+                              return Calculadora(
+                                  key: GlobalKey(),
+                                  placeholder: "Informe a altura",
+                                  unidade: "cm",
+                                  valorInformado: (valor) =>
+                                      cubit.calcularIMC(valor));
+                            else if (state
+                                is CalculadoraState_ExibindoResultado)
+                              return Resultado(state: state);
+                            return Container();
+                          },
+                        )),
+                  ),
+                ),
               ),
+            ) // This trailing comma makes auto-formatting nicer for build methods.
             ),
-          ),
-        ) // This trailing comma makes auto-formatting nicer for build methods.
-        );
-  }
+      );
 }

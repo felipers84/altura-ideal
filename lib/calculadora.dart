@@ -72,7 +72,6 @@ class _Calculadora extends State<Calculadora> with TickerProviderStateMixin {
                   padding: const EdgeInsets.fromLTRB(32, 12, 32, 24),
                   child: Column(
                     mainAxisSize: MainAxisSize.min,
-                    crossAxisAlignment: CrossAxisAlignment.stretch,
                     children: [
                       Text("ALTURA IDEAL",
                           textAlign: TextAlign.right,
@@ -156,6 +155,11 @@ class _Calculadora extends State<Calculadora> with TickerProviderStateMixin {
                                   pressionouTecla: () => pressionouDigito(e),
                                   animationPosition: depthController.value))
                               .toList()),
+                      SizedBox(height: 12),
+                      BotaoCalculadora(
+                          digito: "0",
+                          pressionouTecla: () => pressionouDigito("0"),
+                          animationPosition: depthController.value),
                       SizedBox(height: 24),
                       NeumorphicButton(
                         style: NeumorphicStyle(
@@ -197,7 +201,8 @@ class BotaoCalculadora extends StatelessWidget {
   @override
   Widget build(BuildContext context) => NeumorphicButton(
       style: NeumorphicStyle(
-          depth: 8 * animationPosition, boxShape: NeumorphicBoxShape.circle()),
+          depth: 8 * animationPosition,
+          boxShape: NeumorphicBoxShape.roundRect(BorderRadius.circular(10.0))),
       onPressed: () {
         if (pressionouTecla != null) pressionouTecla();
       },
