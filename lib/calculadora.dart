@@ -31,12 +31,14 @@ class _Calculadora extends State<Calculadora> with TickerProviderStateMixin {
         duration: Duration(milliseconds: 500), value: 0, vsync: this)
       ..animateTo(1, curve: Curves.easeInOut);
     depthController = AnimationController(
-        duration: Duration(milliseconds: 1000), value: 0, vsync: this)
+        duration: Duration(milliseconds: 800), value: 0, vsync: this)
       ..animateTo(1, curve: Curves.easeInOut);
   }
 
   close() {
-    depthController.animateTo(0).then((value) {
+    depthController
+        .animateTo(0, duration: Duration(milliseconds: 300))
+        .then((value) {
       if (widget.valorInformado != null)
         widget.valorInformado(int.parse(display));
     });
