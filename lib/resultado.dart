@@ -81,6 +81,7 @@ class LabelAcao extends StatelessWidget {
               ? "ENCOLHER"
               : "",
       textAlign: TextAlign.center,
+      softWrap: false,
       style: TextStyle(fontSize: 36),
     );
   }
