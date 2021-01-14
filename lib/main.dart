@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 import 'package:imc/calculadora.cubit.dart';
 import 'package:imc/calculadora.dart';
+import 'package:imc/introducao.dart';
 import 'package:imc/resultado.dart';
 
 void main() {
@@ -74,7 +75,10 @@ class _MyHomePageState extends State<MyHomePage> {
                           builder: (context, state) {
                             var cubit =
                                 BlocProvider.of<CalculadoraCubit>(context);
-                            if (state is CalculadoraState_VerificandoPeso)
+                            if (state is CalculadoraState_Introducao) {
+                              return Introducao();
+                            } else if (state
+                                is CalculadoraState_VerificandoPeso)
                               return Calculadora(
                                 key: GlobalKey(),
                                 placeholder: "Informe o peso",

@@ -3,8 +3,7 @@ import 'dart:math';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class CalculadoraCubit extends Cubit<CalculadoraState> {
-  CalculadoraCubit() : super(CalculadoraState_VerificandoPeso());
-  //CalculadoraCubit() : super(CalculadoraState_ExibindoResultado());
+  CalculadoraCubit() : super(CalculadoraState_Introducao());
 
   int peso;
   double altura;
@@ -40,6 +39,8 @@ class CalculadoraCubit extends Cubit<CalculadoraState> {
 }
 
 abstract class CalculadoraState {}
+
+class CalculadoraState_Introducao extends CalculadoraState {}
 
 class CalculadoraState_VerificandoPeso extends CalculadoraState {}
 
