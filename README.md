@@ -1,4 +1,4 @@
-# imc
+# alturaideal
 
 A new Flutter project.
 

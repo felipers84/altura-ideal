@@ -27,26 +27,23 @@ class _IntroducaoState extends State<Introducao> with TickerProviderStateMixin {
   Widget build(BuildContext context) {
     return AnimatedBuilder(
       animation: controller,
-      builder: (context, widget) => Transform.rotate(
-        angle: -math.pi / 2,
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Transform.scale(
-              alignment: Alignment.bottomLeft,
-              scale: 0.1 + (0.9 * controller.value),
-              child: Text(
-                "ALTURA IDEAL",
-                style: TextStyle(fontSize: 40, height: 0.8),
-              ),
+      builder: (context, widget) => Column(
+        mainAxisSize: MainAxisSize.min,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Transform.scale(
+            alignment: Alignment.bottomLeft,
+            scale: 0.1 + (0.9 * controller.value),
+            child: Text(
+              "ALTURA IDEAL",
+              style: TextStyle(fontSize: 40, height: 0.8),
             ),
-            Text(
-              "por Felipe Campos",
-              textAlign: TextAlign.start,
-            )
-          ],
-        ),
+          ),
+          Text(
+            "por Felipe Campos",
+            textAlign: TextAlign.start,
+          )
+        ],
       ),
     );
   }
