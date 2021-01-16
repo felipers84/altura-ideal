@@ -75,12 +75,20 @@ class _Calculadora extends State<Calculadora> with TickerProviderStateMixin {
                   child: Column(
                     mainAxisSize: MainAxisSize.min,
                     children: [
-                      Text("ALTURA IDEAL",
-                          textAlign: TextAlign.right,
-                          style: TextStyle(
-                              fontWeight: FontWeight.w900,
-                              fontSize: 12,
-                              fontStyle: FontStyle.italic)),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.end,
+                        children: [
+                          Text("ALTURA IDEAL",
+                              textAlign: TextAlign.right,
+                              style: TextStyle(
+                                  fontWeight: FontWeight.w900,
+                                  color: Color(0xFF999999),
+                                  fontSize: 12,
+                                  fontStyle: FontStyle.italic)),
+                          SizedBox(width: 8),
+                          Image.asset('assets/icone.png', width: 24),
+                        ],
+                      ),
                       SizedBox(height: 8),
                       Neumorphic(
                         child: Stack(
