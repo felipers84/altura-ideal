@@ -1,16 +1,11 @@
 # alturaideal
 
-A new Flutter project.
+The apps basically takes the BMI formula as a parameter and suggests an individual ideal height (altura ideal in portuguese) instead of the ideal weight.
 
-## Getting Started
+This is a personal project for Flutter learning and fun purposes.
 
-This project is a starting point for a Flutter application.
+Developed using Cubit framework.
 
-A few resources to get you started if this is your first Flutter project:
+![image](https://user-images.githubusercontent.com/2109916/134698143-ccb1e758-424b-4fdb-9bcc-392945445330.png)
 
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
-
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+Feel free to fork-it or make suggestions!
