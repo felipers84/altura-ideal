@@ -1,6 +1,6 @@
 # alturaideal
 
-The apps basically takes the BMI formula as a parameter and suggests an individual ideal height (altura ideal in portuguese) instead of the ideal weight.
+This app basically takes the BMI formula as a parameter and suggests an individual ideal height (altura ideal in portuguese) instead of the ideal weight.
 
 This is a personal project for Flutter learning and fun purposes.
 
