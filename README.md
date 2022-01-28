@@ -8,4 +8,4 @@ Developed using Cubit framework.
 
 ![image](https://user-images.githubusercontent.com/2109916/134698143-ccb1e758-424b-4fdb-9bcc-392945445330.png)
 
-Feel free to fork it or make suggestions!
+Feel free to [fork my repository](https://github.com/felipers84/altura-ideal/fork) or make any suggestions!
